@@ -5,9 +5,8 @@ WORKDIR /app
 COPY . .
 
 RUN pip install --upgrade pip && \
-    pip install -r requirements.txt && \
-    pip install uv
+    pip install -r requirements.txt
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["uv", "run", "bot.py"]
+CMD ["python", "bot.py"]

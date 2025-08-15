@@ -10,7 +10,7 @@ from typing import Dict, List, Optional, Any, Union
 import redis
 from dotenv import load_dotenv
 
-from parse_message import parse_message
+from .parse_message import parse_message
 
 load_dotenv()
 

@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: news-checker-api
-    command: uv run api/api.py
+    command: python -m api.api
     volumes:
       - .:/app
     depends_on:
@@ -26,7 +26,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: uv run worker/agent.py
+    command: python -m worker.agent
     container_name: news-checker-worker
     volumes:
       - .:/app
@@ -43,7 +43,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: uv run bot.py
+    command: python bot.py
     container_name: news-checker-bot
     volumes:
       - .:/app
