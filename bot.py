@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 async def send_message_to_api(payload: dict):
-        url = f"http://news-checker-api:5555/{os.getenv('API_KEY')}"
+        url = f"http://news-checker-api:11111/{os.getenv('API_KEY')}"
         headers = {"Content-Type": "application/json"}
 
         async with httpx.AsyncClient() as client:

@@ -16,9 +16,9 @@ services:
       - news-checker-network
     restart: always
     ports:
-      - 5555:5555
+      - 11111:11111
     expose:
-      - 5555
+      - 11111
     env_file:
       - .env
 
@@ -75,10 +75,10 @@ services:
       - news-checker-network
     container_name: news-checker-mongodb
     ports:
-      - 27021:27021
+      - 27024:27024
     expose:
-      - 27021
-    command: ["mongod", "--port", "27021"]
+      - 27024
+    command: ["mongod", "--port", "27024"]
     environment:
       MONGO_INITDB_ROOT_USERNAME: news_checker
       MONGO_INITDB_ROOT_PASSWORD: c6a7ec6baeee3795873fb741b6445fdd
