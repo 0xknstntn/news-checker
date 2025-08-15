@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   news-checker-api:
@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: news-checker-api
-    command: uv run api/api.py
+    command: uv run --system api/api.py
     volumes:
       - .:/app
     depends_on:
@@ -26,7 +26,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: uv run worker/agent.py
+    command: uv run --system worker/agent.py
     container_name: news-checker-worker
     volumes:
       - .:/app
@@ -43,7 +43,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: uv run bot.py
+    command: uv run --system bot.py
     container_name: news-checker-bot
     volumes:
       - .:/app
