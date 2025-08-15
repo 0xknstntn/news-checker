@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  news-checker-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: news-checker-api
+    command: uv run api/api.py
+    volumes:
+      - .:/app
+    depends_on:
+      - news-checker-redis
+      - news-checker-mongodb
+    networks:
+      - news-checker-network
+    restart: always
+    ports:
+      - 5555:5555
+    expose:
+      - 5555
+    env_file:
+      - .env
+
+  news-checker-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uv run worker/agent.py
+    container_name: news-checker-worker
+    volumes:
+      - .:/app
+    depends_on:
+      - news-checker-redis
+      - news-checker-mongodb
+    networks:
+      - news-checker-network
+    restart: always
+    env_file:
+      - .env
+
+  news-checker-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uv run bot.py
+    container_name: news-checker-bot
+    volumes:
+      - .:/app
+    depends_on:
+      - news-checker-api
+      - news-checker-worker
+      - news-checker-redis
+      - news-checker-mongodb
+    networks:
+      - news-checker-network
+    restart: always
+    env_file:
+      - .env
+
+  news-checker-redis:
+    image: redis:latest
+    volumes:
+      - ./redis-data:/data
+    container_name: news-checker-redis
+    networks:
+      - news-checker-network
+    restart: always
+
+  news-checker-mongodb:
+    image: mongo:latest
+    volumes:
+      - ./mongo-data:/data/db
+    networks:
+      - news-checker-network
+    container_name: news-checker-mongodb
+    ports:
+      - 27021:27021
+    expose:
+      - 27021
+    command: ["mongod", "--port", "27021"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: news_checker
+      MONGO_INITDB_ROOT_PASSWORD: c6a7ec6baeee3795873fb741b6445fdd
+    restart: always
+    
+networks:
+  news-checker-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  mongo-data:

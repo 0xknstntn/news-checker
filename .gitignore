@@ -1,0 +1,7 @@
+.venv/
+.env
+__pycache__/
+qdrant_data/
+mongo-data/
+redis-data/
+.DS_Store

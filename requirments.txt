@@ -1,0 +1,14 @@
+fastapi 
+uvicorn 
+requests 
+langchain 
+langchain-openai
+langchain-xai
+langchain-community
+langchain-qdrant
+qdrant-client
+redis
+pymongo
+python-telegram-bot
+httpx
+google-search-results>=2.4
